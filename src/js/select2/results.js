@@ -14,7 +14,7 @@ define([
 
   Results.prototype.render = function () {
     var $results = $(
-      '<ul class="select2-results__options" role="listbox"></ul>'
+      '<ul class="select2-results__options" aria-label="Choose value" role="listbox"></ul>'
     );
 
     if (this.options.get('multiple')) {
@@ -36,10 +36,8 @@ define([
     this.clear();
     this.hideLoading();
 
-    var $message = $(
-      '<li role="alert" aria-live="assertive"' +
-      ' class="select2-results__option"></li>'
-    );
+    var $message = $('<span role="alert" aria-live="assertive" class="select2-results__message" />');
+    var $li = $('<li role="option" class="select2-results__option" aria-disabled="true" style="cursor: unset;" />');
 
     var message = this.options.get('translations').get(params.message);
 
@@ -49,13 +47,13 @@ define([
       )
     );
 
-    $message[0].className += ' select2-results__message';
-
-    this.$results.append($message);
+    
+    $li.append($message);
+    this.$results.append($li);
   };
 
   Results.prototype.hideMessages = function () {
-    this.$results.find('.select2-results__message').remove();
+    this.$results.find('.select2-results__message').parent().remove();
   };
 
   Results.prototype.append = function (data) {

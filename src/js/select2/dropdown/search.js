@@ -52,10 +52,10 @@ define([
       self.$search.attr('tabindex', 0);
       self.$search.attr('aria-controls', resultsId);
 
-      self.$search.trigger('focus');
+      self.$search[0].focus();
 
       window.setTimeout(function () {
-        self.$search.trigger('focus');
+        self.$search[0].focus();
       }, 0);
     });
 
@@ -70,7 +70,7 @@ define([
 
     container.on('focus', function () {
       if (!container.isOpen()) {
-        self.$search.trigger('focus');
+        self.$search[0].focus();
       }
     });
 

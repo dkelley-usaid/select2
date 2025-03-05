@@ -35,14 +35,14 @@ define([
 
     container.on('open', function () {
       self.$search.attr('aria-controls', resultsId);
-      self.$search.trigger('focus');
+      self.$search[0].focus();
     });
 
     container.on('close', function () {
       self.$search.val('');
       self.$search.removeAttr('aria-controls');
       self.$search.removeAttr('aria-activedescendant');
-      self.$search.trigger('focus');
+      self.$search[0].focus();
     });
 
     container.on('enable', function () {
@@ -56,7 +56,7 @@ define([
     });
 
     container.on('focus', function (evt) {
-      self.$search.trigger('focus');
+      self.$search[0].focus();
     });
 
     container.on('results:focus', function (params) {

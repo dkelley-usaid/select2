@@ -1,4 +1,4 @@
-const sass = require('node-sass');
+const sass = require('sass');
 
 module.exports = function (grunt) {
   // Full list of files that must be included by RequireJS
