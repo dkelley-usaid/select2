@@ -855,7 +855,7 @@ S2.define('select2/results',[
 
   Results.prototype.render = function () {
     var $results = $(
-      '<ul class="select2-results__options" role="listbox"></ul>'
+      '<ul class="select2-results__options" aria-label="Choose value" role="listbox"></ul>'
     );
 
     if (this.options.get('multiple')) {
@@ -877,10 +877,8 @@ S2.define('select2/results',[
     this.clear();
     this.hideLoading();
 
-    var $message = $(
-      '<li role="alert" aria-live="assertive"' +
-      ' class="select2-results__option"></li>'
-    );
+    var $message = $('<span role="alert" aria-live="assertive" class="select2-results__message" />');
+    var $li = $('<li role="option" class="select2-results__option" aria-disabled="true" style="cursor: unset;" />');
 
     var message = this.options.get('translations').get(params.message);
 
@@ -890,13 +888,13 @@ S2.define('select2/results',[
       )
     );
 
-    $message[0].className += ' select2-results__message';
-
-    this.$results.append($message);
+    
+    $li.append($message);
+    this.$results.append($li);
   };
 
   Results.prototype.hideMessages = function () {
-    this.$results.find('.select2-results__message').remove();
+    this.$results.find('.select2-results__message').parent().remove();
   };
 
   Results.prototype.append = function (data) {
@@ -2006,14 +2004,14 @@ S2.define('select2/selection/search',[
 
     container.on('open', function () {
       self.$search.attr('aria-controls', resultsId);
-      self.$search.trigger('focus');
+      self.$search[0].focus();
     });
 
     container.on('close', function () {
       self.$search.val('');
       self.$search.removeAttr('aria-controls');
       self.$search.removeAttr('aria-activedescendant');
-      self.$search.trigger('focus');
+      self.$search[0].focus();
     });
 
     container.on('enable', function () {
@@ -2027,7 +2025,7 @@ S2.define('select2/selection/search',[
     });
 
     container.on('focus', function (evt) {
-      self.$search.trigger('focus');
+      self.$search[0].focus();
     });
 
     container.on('results:focus', function (params) {
@@ -4124,10 +4122,10 @@ S2.define('select2/dropdown/search',[
       self.$search.attr('tabindex', 0);
       self.$search.attr('aria-controls', resultsId);
 
-      self.$search.trigger('focus');
+      self.$search[0].focus();
 
       window.setTimeout(function () {
-        self.$search.trigger('focus');
+        self.$search[0].focus();
       }, 0);
     });
 
@@ -4142,7 +4140,7 @@ S2.define('select2/dropdown/search',[
 
     container.on('focus', function () {
       if (!container.isOpen()) {
-        self.$search.trigger('focus');
+        self.$search[0].focus();
       }
     });
 
